@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  maintainance_status: 1
+  user: one
+  maintainance: one
+
+two:
+  maintainance_status: 1
+  user: two
+  maintainance: two

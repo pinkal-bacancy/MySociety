@@ -1,0 +1,159 @@
+<style>
+ /* Dropdown Button */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-menu{
+  background-color: #008080
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+} 
+
+
+
+
+
+
+</style>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+  <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+  <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+  <!--[if IE 9]> <html class="no-js ie9 oldie" lang="en"> <![endif]-->
+    <meta charset="utf-8">
+  <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Coming soon, Bootstrap, Bootstrap 3.0, Free Coming Soon, free coming soon, free template, coming soon template, Html template, html template, html5, Code lab, codelab, codelab coming soon template, bootstrap coming soon template">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    
+    <title>MySociety</title>
+  <!-- ============ Google fonts ============ -->
+  
+
+  </head>
+
+
+
+
+  <body style="background-image:url(<%= asset_path '11.jpg'%>);background-size: cover">
+    <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="#">Mysociety</a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-menubuilder">
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "sign out",destroy_user_session_path,method: "delete"%>
+            </li>
+            <li><%= link_to "edit profile", edit_user_registration_path %>
+            </li>
+            <li><%= link_to "edit password",  edit_user_password_path  %>
+            </li>
+            <% if (current_user.has_role? :super_admin) %>
+            
+              <li><%= link_to "Add Society ",  new_society_path  %></li>
+              <li><%= link_to "view events ",   events_path  %> </li>
+
+              
+            <%elsif current_user.has_role? :admin%>
+              <li><%= link_to "Edit Society ",  edit_society_path(current_user.society)  %></li>
+              <li><%= link_to "add event ",   new_event_path  %></li>
+              <li><%= link_to "view events ",   events_path  %></li>
+           
+            <%else%>
+              <li><%= link_to "View Society ",  societies_path  %></li>
+              <li><%= link_to "view events ",   events_path  %></li>
+              
+              
+            <%end%>
+            
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Edit profile", edit_user_registration_path %></li>
+                  <li><%= link_to "edit password",  edit_user_password_path  %></li>
+                  <li><%= link_to "sign out",destroy_user_session_path,method: "delete"%>
+
+                </ul>
+              </li>
+            </ul> 
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+        <div id="banner">
+          <h1><%=  current_user.society.society_name%> <strong></strong> </h1>
+
+          <h5><strong></strong></h5>
+        </div>
+        
+            
+      </div>
+
+      <center>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+           <%= yield%>
+      
+      </div>
+      </center>
+    </div>
+
+
+
+
+   
+      
+
+    
+  </body>
+</html>

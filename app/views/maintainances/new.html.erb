@@ -1,0 +1,15 @@
+<body style="background-image:url(<%= asset_path '34.jpg'%>);background-size: cover">
+	  <%= render partial:"layouts/navbar"%>
+   <%= form_for @maintainance do |f|%>
+	<%= f.label :month %>
+	<%= f.text_field :month%>
+
+	<%= f.label :amount %>
+	<%= f.text_field :amount %>
+
+	<%= f.label :due_date %>
+	<%= f.date_field :due_date %>
+  
+  <%= f.submit "send" %>
+<%end%>
+</body>

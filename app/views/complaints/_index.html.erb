@@ -1,0 +1,27 @@
+<div class="table-users">
+<div class="header">Complaint detail</div>
+<table>
+<tr>
+  <td>name</td>
+  <td>content</td>
+  <td>status</td>
+  <td></td>
+</tr>
+<% @complaints.each do |c|%>
+<tr>
+  <%if c.user.society_id==current_user.society_id%>
+    <td><%= c.user.name%></td>
+   	<td><%= c.content%></td>
+   	<td> <% if c.status=="pending"%><%= link_to '<button type="button" style="color:blue   ;">pending</button>'.html_safe,edit_status_complaint_path(c),method: :post%>
+  <%else%>
+  <%= c.status%>
+  <%end%>
+   	 </td>
+   	 <td><%= link_to "delete",complaint_path(c),method: :delete%></td>
+
+  
+   <%end%>
+   </tr>
+<%end%>
+</table>
+</div>

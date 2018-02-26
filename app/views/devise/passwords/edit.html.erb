@@ -1,0 +1,57 @@
+<body style="background-image:url(<%= asset_path '34.jpg'%>)">
+  <%= render partial:"layouts/navbar"%>
+  <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+    <div class="container">
+      <div class="navbar-header"><a class="navbar-brand" href="#">Mysociety</a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse navbar-menubuilder">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/"></a>
+          </li>
+          <li><a href="/products"></a>
+          </li>
+          <li><a href="/about-us"> </a>
+          </li>
+          <li><a href="/contact"> </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+      <div id="banner">
+        <h1>Mysociety <strong>Forgot password</strong> </h1>
+        <h5><strong></strong></h5>
+      </div>     
+    </div>
+    <center>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="registrationform">
+          <h2>Change your password</h2>
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+          <%= devise_error_messages! %>
+          <%= f.hidden_field :reset_password_token %>
+          <div class="field">
+            <%= f.label :password, "New password" %><br />
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+            <% end %>
+            <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+          </div>
+          <div class="field">
+            <%= f.label :password_confirmation, "Confirm new password" %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "off" %>
+          </div>
+          <div class="actions">
+           <%= f.submit "Change my password" %>
+         </div>
+         <% end %>
+         <%= render "devise/shared/links" %>
+       </div>
+     </div>
+   </div>
+ </center>   
+</body>

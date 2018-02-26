@@ -1,0 +1,59 @@
+<body style="background-image:url(<%= asset_path '34.jpg'%>)">
+     <%= render partial:"layouts/navbar"%>
+        <div class="container">
+           <center>          
+            <div class="table-users">
+            <div class="header">Event detail</div>
+            <table >
+            <tr>
+            <td>Event Title</td>
+            <td>Event Date</td>
+            <td>Event Description</td>
+            <td>Event Society name</td>
+            <td>Event edit</td>
+            <td>Event delete</td>
+            </tr>
+            <% if current_user.has_role? "admin"%>
+            <% @events.each do |event|%>
+            <% if current_user.society_id==event.society_id %>
+            <tr>
+            <td>
+
+              <%= event.event_title%></td>
+              <td>
+              <%= event.event_date%></td>
+              <td>
+              <%= event.event_description%></td>
+               <td>
+              <%= event.society.society_name  %></td>            <td>
+              <%= link_to "edit event", edit_event_path(event)%></td>
+              <td>
+              <%= link_to "delete event", event_path(event),method: :delete%></td>
+              </tr>
+            <%end%>
+            <%end%>
+            <%elsif current_user.has_role? "super_admin"%>
+            <% @events.each do |event|%>
+            <tr>
+            <td>
+
+              <%= event.event_title%></td>
+              <td>
+              <%= event.event_date%></td>
+              <td>
+              <%= event.event_description%></td>
+              <td>
+              <%= event.society.society_name%></td>
+            <td>
+              <%= link_to "edit event", edit_event_path(event)%></td>
+              <td>
+              <%= link_to "delete event", event_path(event),method: :delete%></td>
+              </tr>
+              <%end%>
+              <%end%>
+            </table>
+          </div>
+       </center>
+        </div>
+       </body>
+</html>

@@ -1,0 +1,18 @@
+ <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+  <div class="registrationform">
+    <%= image_tag current_user.image%>
+    <%= form_for @message do |f|%>
+    <%= f.label :message_to %>
+    <%= f.text_field :message_to,value: @user.email %>
+
+    <%= f.label :message_from %>
+    <%= f.text_field :message_from, value: @m.name %>
+
+    <%= f.label :message_content %>
+    <%= f.text_field :message_content %>
+    
+    <%= f.submit "send" %>
+
+    <%end%>
+  </div>
+</div>

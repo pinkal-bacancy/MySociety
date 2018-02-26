@@ -1,0 +1,51 @@
+<body style="background-image:url(<%= asset_path '34.jpg'%>)">
+ <%= render partial:"layouts/navbar"%>
+ <div class="container">
+   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+     <div id="banner">
+       <h1>Mysociety <strong>Registration Form</strong> </h1>
+       <h5><strong></strong></h5>
+     </div>
+   </div>
+   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    <div class="registrationform">
+      <%= form_for(@society, url:societies_path,  class: "form-horizontal") do |f| %>
+      <fieldset>
+        <legend>Society Registration Form <i class="fa fa-pencil pull-right"></i></legend>
+        <div class="field">
+          <%= f.label :Society_name %><br />
+          <%= f.text_field :society_name, autofocus: true, autocomplete: "name" %>
+        </div>
+        <div class="field">
+          <%= f.label :address %><br />
+          <%= f.text_area :address, autofocus: true, autocomplete: "name" %>
+        </div>
+        <div class="field">
+          <%= f.label :city %><br />
+          <%= f.text_field :city, autofocus: true, autocomplete: "name" %>
+        </div>
+        <div class="field">
+          <%= f.label :state %><br />
+          <%= f.text_field :state, autofocus: true, autocomplete: "name" %>
+        </div>
+        <div class="field">
+          <%= f.label :contry %><br />
+          <%= f.text_field :contry, autofocus: true, autocomplete: "name" %>
+        </div>
+        <div class="field">
+          <%= f.label :street_name %><br />
+          <%= f.text_field :street_name, autofocus: true, autocomplete: "name" %>
+        </div>
+        <div class="field">
+          <%= f.label :zipcode %><br />
+          <%= f.text_field :zipcode, autofocus: true, autocomplete: "name" %>
+        </div>
+        <div class="actions">
+          <%= f.submit  %>
+        </div>
+      </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>
+</body>

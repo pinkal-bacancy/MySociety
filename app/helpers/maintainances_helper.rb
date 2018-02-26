@@ -1,0 +1,2 @@
+module MaintainancesHelper
+end

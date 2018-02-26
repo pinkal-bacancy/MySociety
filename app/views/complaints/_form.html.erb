@@ -1,0 +1,19 @@
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+  <div class="registrationform">
+    <%= form_for(@complaint, url: complaints_path ,  class: "form-horizontal") do |f| %>
+    <fieldset>
+      <legend>Complaint Form <i class="fa fa-pencil pull-right"></i></legend>
+
+      <div class="field">
+        <%= f.label :complaint %><br />
+        <%= f.text_field :content, autofocus: true, autocomplete: "content" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "add event" %>
+      </div>
+
+    </fieldset>
+    <% end %>
+</div>
+</div>

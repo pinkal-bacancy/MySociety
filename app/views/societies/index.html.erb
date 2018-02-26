@@ -1,0 +1,35 @@
+<body style="background-image:url(<%= asset_path '34.jpg'%>)">
+  <%= render partial:"layouts/navbar"%>    
+        <div class="container">
+           <center>
+            <div class="table-users">
+            <div class="header">Society detail</div>
+            <table >
+            <tr>
+            <td>societyname</td>
+            <td>street</td>
+            <td>state</td>
+            <td>city</td>
+            <td>edit</td>
+            <td>delete</td>
+            </tr>
+            <% @societies.each do |soc|%>
+            <tr>
+            <td>
+              <%= soc.society_name%></td>
+              <td>
+              <%= soc.street_name%></td>
+              <td>
+              <%= soc.city%></td>
+              <td>
+              <%= soc.state%></td>
+             
+                <td><%= link_to "edit society",edit_society_path(soc)%></td>
+                <td><%= link_to "delete society",society_path(soc),method: :delete%></td>
+              </tr>
+            <%end%>
+            </table>
+         </div>
+</center>
+        </div>       
+</body>

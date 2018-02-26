@@ -1,0 +1,115 @@
+<body style="background-image:url(<%= asset_path '11.jpg'%>);background-size: cover">
+ <%= render partial:"layouts/navbar"%>
+ <div class="container">
+  <center>
+    <% if (current_user.has_role? :super_admin) %>
+    <%= form_tag root_path, :method => 'get' do %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+    <% end %>
+    <div class="table-users">
+      <div class="header">Society detail</div>
+      <%end%>
+      <% if current_user.has_role? :super_admin%>
+      <table >
+        <% @users.each do |user|%>
+        <tr>
+          <td> <%= image_tag user.image,alt:"no image"%></td>
+          <td> <%= user.name %></td>
+          <td> <%= user.email %></td>
+          <td> <%= user.society.society_name %></td>
+          <td>
+            <% if user.has_role? :super_admin%>
+            <P>Super Admin</P>
+            <%elsif (user.has_role? :admin)&&(user.has_role? :member)%>
+            <p>admin</p> 
+            <%= link_to '<button type="button" style="color:blue   ;">edit role</button>'.html_safe,edit_role_user_path(user),method: :post%> 
+            <%elsif user.has_role? :admin%>
+            <p>admin</p> 
+            <%= link_to '<button type="button" style="color:blue   ;">edit role</button>'.html_safe,edit_role_user_path(user),method: :post%> 
+            <%else%>
+            <p>member</p><%= link_to '<button type="button" style="color:blue   ;">edit role</button>'.html_safe,edit_role_user_path(user),method: :post%>
+          </td>
+          <%end%>
+          <td> <%= link_to "show", user_path(user)%></td>
+          <td> <%= link_to "Delete", user_path(user),method: :delete%></td>
+        </tr>
+        <%end%>
+      </table>
+    </div>
+  </div>
+  <%end%>
+  <% if current_user.has_role? :admin%>
+  <div class="table-users">
+    <div class="header">Member detail</div>
+    <table >
+      <tbody style="color: black">
+        <% @users.each do |user|%>
+        <tr>
+          <% if (current_user.society.society_name==user.society.society_name) && (!(user.has_role? :super_admin))%>
+          <td><%= image_tag user.image,alt:"no image",:size =>"50x50"%></td>
+          <td> <%= user.name %></td>
+          <td> <%= user.email %></td>
+          <td> <%= user.society.society_name %></td>
+          <td><%= link_to "Send message ",   new_message_path(:message =>{:message_to => user.id} ),remote: true %></td>
+          <td><%= link_to "Delete", user_path(user),method: :delete%></td>
+          <td> <%= link_to "show", user_path(user)%></td>
+          <td> <% if user.has_role? :super_admin%>
+            <P>Super Admin</P>
+            <%elsif user.has_role? :admin%>
+            <p>admin</p> 
+            <%else%>
+            <p>member</p><%= link_to "edit_role",edit_role_user_path(user),method: :post%>
+          </td>
+          <%end%>
+        </tr>
+        <%end%>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%end%>
+<% if (current_user.has_role? "member")||(current_user.has_role? "admin")%>
+<div class="table-users">
+  <div class="header">Today Event</div>
+  <table>
+    <% @events.each do |event|%>
+    <tr>
+      <% if current_user.society_id==event.society_id%>
+      <%if (event.event_date==Date.today)%>
+      <td><%= event.event_title%></td>
+      <td><%= event.event_date%></td>
+      <td><%= event.event_description%></td>
+      <%end%>
+      <%end%>
+    </tr>
+    <%end%>
+  </table>
+</div>
+</div>
+<div class="table-users">
+  <div class="header">messages</div>
+  <table>
+    <% @messages.each do |message|%>
+    <tr>
+      <% if current_user.email==message.message_to%>
+      <td><%= message.message_from%>::</td>
+      <td><%= message.message_content%><p></p><%= link_to "reply", new_message_path(:message =>{:message_to => message.user_id}), remote: true%></td>
+      <td><%= link_to "delete",message_path(message),method: :delete%></td>
+      <%end%>
+    </tr>
+    <%end%>
+  </table>
+</div>
+</div>
+<div id="complaint-new">
+</div>
+<div id="complaint-index">
+</div>
+<div id="message-new">
+</div>         
+<%end%>    
+</div>
+</center>
+</body>

@@ -1,0 +1,17 @@
+  <body style="background-image:url(<%= asset_path '34.jpg'%>)">
+  <%= render partial:"layouts/navbar"%>
+  <div class="table-users">
+    <div class="header">messages</div>  
+    <table>
+      <% @messages.each do |message|%>
+      <tr>
+       <td>message to::<%= message.message_to%></td>
+       <td>message from::<%= message.message_from%></td>
+       <td>message content::<%= message.message_content%></td>
+      <td><%= link_to "delete",message_path(message),method: :delete%></td>
+     </tr>
+     <%end%>
+   </table>
+ </div>
+</div>
+</body>

@@ -1,0 +1,35 @@
+<body style="background-image:url(<%= asset_path '34.jpg'%>)">
+     <%= render partial:"layouts/navbar"%>
+        <div class="container">
+           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+           <div id="banner">
+             <h1>Mysociety <strong>Registration Form</strong> </h1>
+            <h5><strong></strong></h5>
+           </div>              
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="registrationform">
+            <%= form_for(@event, url: events_path ,  class: "form-horizontal") do |f| %>
+                <fieldset>
+                  <legend>Evenets Add Form <i class="fa fa-pencil pull-right"></i></legend>                     
+                     <div class="field">
+                      <%= f.label :event_title %><br />
+                      <%= f.text_field :event_title, autofocus: true, autocomplete: "event_title" %>
+                    </div>
+                     <div class="field">
+                      <%= f.label :event_description %><br />
+                      <%= f.text_area :event_description, autofocus: true, autocomplete: "event_description" %>
+                    </div>
+                     <div class="field">
+                      <%= f.label :event_date %><br />
+                      <%= f.date_field :event_date, autofocus: true, autocomplete: "event_date" %>
+                    </div>
+                    <div class="actions">
+                      <%= f.submit "add event" %>
+                    </div>
+                </fieldset>
+            <% end %>
+         </div>
+         </div>
+        </div>       
+</body>

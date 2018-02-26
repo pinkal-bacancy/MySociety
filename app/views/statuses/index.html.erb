@@ -1,0 +1,97 @@
+<body style="background-image:url(<%= asset_path '34.jpg'%>)">
+ 	<%= render partial:"layouts/navbar"%>
+ 	<%if current_user.has_role? "member"%>
+ 	<div class="table-users">
+ 		<div class="header">messages</div>
+ 		<table>
+ 			<tr>
+ 				<td>name</td>
+ 				<td>amount</td>
+ 				<td>due_date</td>
+ 				<td>status</td>
+ 				<td></td>
+ 			</tr>
+ 			<% @statuses.each do |s|%>
+ 			<tr>
+ 				<% if s.user_id==current_user.id%>
+ 				<td><%= s.user.name%></td>
+ 				<td><%= s.maintainance.amount%></td>
+ 				<td><%= s.maintainance.due_date%></td>
+ 				<td><%if s.maintainance_status=="pending"%>
+ 					<%= s.maintainance_status%>
+ 					<td><%= form_tag charges_path(:s_id=>s) do %>
+ 						<article>
+ 							<% if flash[:error].present? %>
+ 							<div id="error_explanation">
+ 								<p><%= flash[:error] %></p>
+ 							</div>
+ 							<% end %>
+ 						</article>
+ 						<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+ 						data-key="pk_test_Nyql4IRTMt0XR4JnPrNi8OcL"
+ 						data-description="A month's subscription"
+ 						data-amount="<%= (s.maintainance.amount)*100%>"
+ 						data-locale="auto"></script>
+ 						<% end %></td>
+ 						<%else%>
+ 						<%= s.maintainance_status%>
+ 						<%end%></td>
+ 						<%end%>
+ 					</tr>
+ 					<%end%>
+ 				</table>
+ 			</div>
+ 			<%elsif current_user.has_role? "admin"%>
+ 			<div class="table-users">
+ 				<div class="header">messages</div>
+ 				<table>
+ 					<tr>
+ 						<td>name</td>
+ 						<td>amount</td>
+ 						<td>month</td>
+ 						<td>due_date</td>
+ 						<td>status</td>
+ 					</tr>
+ 					<% @statuses.each do |s|%>
+ 					<tr>
+ 						<% if s.maintainance.society_id==current_user.society_id%>
+ 						<td><%= s.user.name%></td>
+ 						<td><%= s.maintainance.amount%></td>
+ 						<td><%= s.maintainance.due_date%></td>
+ 						<td><%= s.maintainance.month%></td>
+ 						<td><% if s.user_id==current_user.id%>
+ 							<% if s.maintainance_status=="pending"%>
+ 							<%= form_tag charges_path(:s_id=>s) do %>
+ 							<article>
+ 								<% if flash[:error].present? %>
+ 								<div id="error_explanation">
+ 									<p><%= flash[:error] %></p>
+ 								</div>
+ 								<% end %>
+
+ 							</article>
+ 							<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+ 							data-key="pk_test_Nyql4IRTMt0XR4JnPrNi8OcL"
+ 							data-description="A month's subscription"
+ 							data-amount="500"
+ 							data-locale="auto"></script>
+ 							<% end %>
+ 							<%end%>
+ 							<%end%>
+ 						</td>
+ 						<td><%if s.maintainance_status=="pending"%>
+ 							<%= s.maintainance_status%>
+ 							<%= link_to "Send message ",new_message_path(:message =>{:message_to => s.user_id},remote: true) %> 
+ 							<%= link_to "Send mail ",send_mail_user_path(s.user) %> </td>
+ 							<%else%>
+ 							<%= s.maintainance_status%>
+ 							<%end%></td>
+ 							<%end%>
+ 						</tr>
+ 						<%end%>
+ 					</table>
+ 				</div>
+ 				<%end%>
+ 				<div id="complaint-new">
+ 				</div>
+</body>

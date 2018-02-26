@@ -1,0 +1,8 @@
+<body style="background-image:url(<%= asset_path '34.jpg'%>)">
+ 	<%= render partial:"layouts/navbar"%>
+<%= form_for @status do |f|%>
+   
+	<%= f.text_field :maintainance_status,value: "pending"%>
+   <%= f.submit %>
+<%end%>
+</body>

@@ -1,0 +1,19 @@
+<body style="background-image:url(<%= asset_path '34.jpg'%>)">
+     <%= render partial:"layouts/navbar"%>
+	<table>
+	<tr>
+		<td>month</td>
+		<td>amount</td>
+		<td>due_date</td>
+	</tr>
+	<% @maintainances.each do |m|%>
+      <%if current_user.society_id==m.society_id%>
+	<tr>
+		<td><%= m.month%></td>
+		<td><%= m.amount%></td>
+		<td><%= m.due_date%></td>
+		<td><%= link_to "delete", maintainance_path(m),method: :delete%></td>
+		</tr>
+      <%end%>
+  <%end%>
+</body>
