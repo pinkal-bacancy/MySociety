@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221120505) do
+ActiveRecord::Schema.define(version: 20180227040421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.string "title"
+    t.bigint "person_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "comment_to"
+    t.index ["person_id"], name: "index_comments_on_person_id"
+  end
 
   create_table "complaints", force: :cascade do |t|
     t.string "content"
@@ -53,6 +62,23 @@ ActiveRecord::Schema.define(version: 20180221120505) do
     t.datetime "updated_at", null: false
     t.string "message_from"
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "recipient_id"
+    t.integer "actor_id"
+    t.datetime "read_at"
+    t.string "action"
+    t.integer "notifiable_id"
+    t.string "notifiable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -128,6 +154,7 @@ ActiveRecord::Schema.define(version: 20180221120505) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "comments", "people"
   add_foreign_key "complaints", "users"
   add_foreign_key "events", "societies"
   add_foreign_key "maintainances", "societies"

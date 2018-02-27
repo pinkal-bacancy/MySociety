@@ -22,7 +22,7 @@ gem 'mini_magick'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-gem 'pry-rails'
+#gem 'pry-rails'
 gem 'rolify'
 gem 'cancancan'
 gem 'bootstrap-sass', '~> 3.3.6'

@@ -15,6 +15,7 @@
         can [:create, :destroy, :update], [Event]
         can [:show],[User]
         can [:index],[Complaint]
+        can [:create],[Notification]
         
       else
        

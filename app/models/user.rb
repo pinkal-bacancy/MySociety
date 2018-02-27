@@ -3,6 +3,7 @@ class User < ApplicationRecord
 	has_many :messages
   has_one :status
   has_many :complaints
+  has_many :notifications,foreign_key: :recipient_id
   rolify
 
   # after_create :give_role

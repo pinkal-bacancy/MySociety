@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+ 
   get 'events/new'
   get 'events/index'
   get 'events/show'
@@ -8,9 +9,14 @@ Rails.application.routes.draw do
   # devise_for :users
   resources :events
   resources :maintainances
-    resources :messages
-   resources :statuses
-   resources :charges
+  resources :messages
+  resources :statuses
+  resources :charges
+  resources :notifications do
+    collection do
+      post :mark_as_read
+    end
+  end
   devise_for :users, controllers: {registrations: 'users/registrations',passwords: 'users/passwords'} do
   	get "/change_password", :to => "users/passwords#edit", :as => :change_password
   	# get '/:id/edit_role',to: "users/registrations#edit_role",as: :edit_role
