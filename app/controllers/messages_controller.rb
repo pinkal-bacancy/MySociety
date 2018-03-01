@@ -1,4 +1,4 @@
-class MessagesController < ApplicationController
+  class MessagesController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource 
   def new
@@ -13,6 +13,13 @@ class MessagesController < ApplicationController
   def create
   	@message=current_user.messages.create(message_params)
   	@message.save
+    
+      @user=User.find(current_user.id)
+      @user2=User.find_by(email:@message.message_to)
+    
+      @notification=Notification.create(recipient:@user2,actor:@user,action:@message.message_content,notifiable:@message)
+      @notification.save
+
   	redirect_to root_path	
   end
   def edit
